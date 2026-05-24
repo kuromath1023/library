@@ -1,4 +1,4 @@
-emplate<typename T> 
+template<typename T> 
 struct FenwickTree {
     int n;
     vector<T> data;
