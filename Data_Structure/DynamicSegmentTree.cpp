@@ -5,8 +5,8 @@ private:
     struct Node {
         S val;
         Node *l, *r;
-        Node(S val) : val(val), l(nullptr), r(nullptr) {}
         Node() : val(Monoid::e()), l(nullptr), r(nullptr) {}
+        Node(S val) : val(val), l(nullptr), r(nullptr) {}
     };
 
     void set(Node *node, const T &k, const T &x, T l, T r) {
