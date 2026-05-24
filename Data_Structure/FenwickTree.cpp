@@ -28,7 +28,6 @@ struct FenwickTree {
                 x += k;
             }
         }
-
         return x;
     }
 
@@ -41,7 +40,6 @@ struct FenwickTree {
                 x += k;
             }
         }
-
         return x;
     }
 };
