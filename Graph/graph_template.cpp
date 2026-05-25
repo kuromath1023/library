@@ -40,7 +40,7 @@ struct Graph {
         }
     }
 
-    int size() const { return G.size(); }
+    size_t size() const { return G.size(); }
     vector<Edge<T>> &operator[](int v) { return G[v]; }
     const vector<Edge<T>> &operator[](int v) const { return G[v]; }
 };
