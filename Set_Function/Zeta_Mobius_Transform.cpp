@@ -1,9 +1,9 @@
 template<typename T>
 vector<T> subset_zeta(int n, vector<T> a) {
     for (int i = 0; i < n; i++) {
-        for (int T = 0; T < (1 << n); T++) {
-            if (T >> i & 1) {
-                a[T] += a[T ^ (1 << i)];
+        for (int j = 0; j < (1 << n); j++) {
+            if (j >> i & 1) {
+                a[j] += a[j ^ (1 << i)];
             }
         } 
     }
@@ -13,11 +13,11 @@ vector<T> subset_zeta(int n, vector<T> a) {
 template<typename T>
 vector<T> subset_mobius(int n, vector<T> a) {
     for (int i = 0; i < n; i++) {
-        for (int T = 0; T < (1 << n); T++) {
-            if (T >> i & 1) {
-                a[T] -= a[T ^ (1 << i)];
+        for (int j = 0; j < (1 << n); j++) {
+            if (j >> i & 1) {
+                a[j] -= a[j ^ (1 << i)];
             }
-        }
+        } 
     }
     return a;
 }
@@ -25,9 +25,9 @@ vector<T> subset_mobius(int n, vector<T> a) {
 template<typename T>
 vector<T> superset_zeta(int n, vector<T> a) {
     for (int i = 0; i < n; i++) {
-        for (int T = 0; T < (1 << n); T++) {
-            if (!(T >> i & 1)) {
-                a[T] += a[T | (1 << i)];
+        for (int j = 0; j < (1 << n); j++) {
+            if (!(j >> i & 1)) {
+                a[j] += a[j | (1 << i)];
             }
         }
     }
@@ -37,9 +37,9 @@ vector<T> superset_zeta(int n, vector<T> a) {
 template<typename T>
 vector<T> superset_mobius(int n, vector<T> a) {
     for (int i = 0; i < n; i++) {
-        for (int T = 0; T < (1 << n); T++) {
-            if (!(T >> i & 1)) {
-                a[T] -= a[T | (1 << i)];
+        for (int j = 0; j < (1 << n); j++) {
+            if (!(j >> i & 1)) {
+                a[j] -= a[j | (1 << i)];
             }
         }
     }
