@@ -10,7 +10,7 @@ private:
     static inline u64 generate_base() {
         mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
         uniform_int_distribution<u64> dist(1ULL << 30, 1ULL << 60);
-        return dist(rng) | 1ULL;
+        return dist(rng);
     }
     
     static inline u64 Mul(u64 a, u64 b) {
