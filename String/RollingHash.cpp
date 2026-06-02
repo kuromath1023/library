@@ -5,7 +5,7 @@ private:
     static constexpr u64 MASK31 = (1ULL << 31) - 1;
     static constexpr u64 MASK61 = (1ULL << 61) - 1;
     static constexpr u64 MOD = MASK61;
-    static constexpr u64 adjust = MOD << 2ULL;
+    static constexpr u64 adjust = MOD * 4;
 
     static inline u64 generate_base() {
         mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
@@ -14,12 +14,12 @@ private:
     }
     
     static inline u64 Mul(u64 a, u64 b) {
-        u64 p = a >> 31ULL;
+        u64 p = a >> 31;
         u64 q = a & MASK31;
-        u64 r = b >> 31ULL;
+        u64 r = b >> 31;
         u64 s = b & MASK31;
         u64 x = q * r + p * s;
-        u64 t = x >> 30ULL;
+        u64 t = x >> 30;
         u64 u = x & MASK30;
         return ((p * r) << 1ULL) + t + (u << 31ULL) + q * s;
     }
@@ -61,7 +61,7 @@ public:
     }
 
     u64 get(int l, int r) const {
-        return CalcMod(hash[r] - CalcMod(Mul(hash[l], power[r - l]) + adjust));
+        return CalcMod(hash[r] + adjust - CalcMod(Mul(hash[l], power[r - l])));
     }
 
     static u64 connect(u64 h1, u64 h2, int h2_len) {
