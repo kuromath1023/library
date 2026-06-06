@@ -45,7 +45,9 @@ public:
     Graph &G;
     int root;
     vector<int> size, par, depth, in, out, rev, head;
-    HeavyLightDecomposition(Graph &G, int root = 0) : G(G), root(root) { build(); }  
+    HeavyLightDecomposition(Graph &G, int root = 0) : G(G), root(root) { build(); }
+
+    int idx(int v) { return in[v]; }
 
     int la(int v, int d) {
         while (depth[head[v]] > d) v = par[head[v]];
