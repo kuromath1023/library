@@ -70,7 +70,7 @@ void argument_sort(vector<Point<T>> &v) {
 }
 
 template<typename T>
-vector<Point<T>> convex_hull(vector<Point<T>> ps) {
+vector<Point<T>> convex_hull(vector<Point<T>> ps, bool boundary = false) {
     int n = ps.size();
     if (n <= 1) return ps;
     sort(ps.begin(), ps.end());
@@ -82,7 +82,9 @@ vector<Point<T>> convex_hull(vector<Point<T>> ps) {
         while (int(ch.size()) >= 2) {
             Point<T> &a = ch[ch.size() - 2];
             Point<T> &b = ch[ch.size() - 1];
-            if (cross(b - a, p - a) > 0) break;
+            T cr = cross(b - a, p - a);
+            if (cr > 0) break;
+            if (!boundary && cr == 0) break;
             ch.pop_back();
         }
         ch.emplace_back(p);
@@ -94,7 +96,9 @@ vector<Point<T>> convex_hull(vector<Point<T>> ps) {
         while (int(ch.size()) > lower_size) {
             Point<T> &a = ch[ch.size() - 2];
             Point<T> &b = ch[ch.size() - 1];
-            if (cross(b - a, p - a) > 0) break;
+            auto cr = cross(b - a, p - a);
+            if (cr > 0) break;
+            if (!boundary && cr == 0) break;
             ch.pop_back();
         }
         ch.emplace_back(p);
