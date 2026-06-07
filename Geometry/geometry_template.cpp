@@ -42,6 +42,16 @@ struct Point {
 };
 
 template<typename T>
+istream &operator>>(istream &is, Point<T> &p) {
+    return is >> p.x >> p.y;
+}
+
+template<typename T>
+ostream &operator<<(ostream &os, const Point<T> &p) {
+    return os << p.x << ' ' << p.y;
+}
+
+template<typename T>
 T cross(const Point<T> &a, const Point<T> &b) { return a.x * b.y - a.y * b.x; }
 
 template<typename T>
