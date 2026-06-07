@@ -1,8 +1,6 @@
-template<typename ActedMonoid>
+template<typename S, S(*op)(S, S), S(*e)(), typename F, S(*mapping)(F, S), F(*composition)(F, F), F(*id)()>
 struct LazySegmentTree {
 private:
-    using S = typename ActedMonoid::value_type;
-    using F = typename ActedMonoid::operator_type;
     int n, lg, size;
     vector<S> data;
     vector<F> lazy;
@@ -10,8 +8,8 @@ private:
     void init(int n_) {
         n = n_, lg = 0, size = 1;
         while (size < n) size <<= 1, lg++;
-        data.assign(2 * size, ActedMonoid::e());
-        lazy.assign(size, ActedMonoid::id());
+        data.assign(2 * size, e());
+        lazy.assign(size, id());
     }
 
     void build(const vector<S> &a) {
@@ -20,18 +18,18 @@ private:
     }
 
     void update(int k) {
-        data[k] = ActedMonoid::op(data[k << 1], data[k << 1 | 1]);
+        data[k] = op(data[k << 1], data[k << 1 | 1]);
     }
 
     void apply_at(int k, const F &f) {
-        data[k] = ActedMonoid::mapping(f, data[k]);
-        if (k < size) lazy[k] = ActedMonoid::composition(lazy[k], f);
+        data[k] = mapping(f, data[k]);
+        if (k < size) lazy[k] = composition(lazy[k], f);
     }
 
     void push(int k) {
         apply_at(k << 1, lazy[k]);
         apply_at(k << 1 | 1, lazy[k]);
-        lazy[k] = ActedMonoid::id();
+        lazy[k] = id();
     }
 
 public:
@@ -54,7 +52,7 @@ public:
     void apply(int k, const F &f) {
         k += size;
         for (int i = lg; i >= 1; i--) push(k >> i);
-        data[k] = ActedMonoid::mapping(f, data[k]);
+        data[k] = mapping(f, data[k]);
         for (int i = 1; i <= lg; i++) update(k >> i);
     }
 
@@ -82,7 +80,7 @@ public:
     }
 
     S prod(int l, int r) {
-        if (l >= r) return ActedMonoid::e();
+        if (l >= r) return e();
         l += size;
         r += size;
         for (int i = lg; i >= 1; i--) {
@@ -90,13 +88,13 @@ public:
             if (((r >> i) << i) != r) push((r - 1) >> i);
         }
 
-        S vl = ActedMonoid::e(), vr = ActedMonoid::e();
+        S vl = e(), vr = e();
         while (l < r) {
-            if (l & 1) vl = ActedMonoid::op(vl, data[l++]);
-            if (r & 1) vr = ActedMonoid::op(data[--r], vr);
+            if (l & 1) vl = op(vl, data[l++]);
+            if (r & 1) vr = op(data[--r], vr);
             l >>= 1;
             r >>= 1;
         }
-        return ActedMonoid::op(vl, vr);
+        return op(vl, vr);
     }
 };
