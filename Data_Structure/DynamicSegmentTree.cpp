@@ -5,11 +5,13 @@ private:
         S val;
         Node *l, *r;
         Node() : val(e()), l(nullptr), r(nullptr) {}
-        Node(S val) : val(val), l(nullptr), r(nullptr) {}
     };
 
+    T n;
+    Node *root;
+
     void set(Node *&node, const T &k, const S &x, T l, T r) {
-        if (!node) node = new Node(x);
+        if (!node) node = new Node();
         if (r - l == 1) {
             node->val = x;
             return;
@@ -22,8 +24,7 @@ private:
         if (node->r) node->val = op(node->val, node->r->val);
     }
 
-    S get(const T &k, T l, T r) const {
-        Node *node = root;
+    S get(Node *node, const T &k, T l, T r) const {
         while (r - l > 1) {
             if (!node) return e();
             T m = (l + r) >> 1LL;
@@ -35,7 +36,7 @@ private:
                 node = node->r;
             }
         }
-        return node->val;
+        return node ? node->val : e();
     }
 
     S prod(Node *node, T a, T b, T l, T r) const {
@@ -48,8 +49,6 @@ private:
     }
 
 public:
-    T n;
-    Node *root;
     DynamicSegmentTree(T n) : n(n), root(nullptr) {}
 
     void set(const T &k, const S &x) {
@@ -57,7 +56,7 @@ public:
     }
 
     S get(const T &k) const {
-        return get(k, 0, n);
+        return get(root, k, 0, n);
     }
 
     S prod(T l, T r) const {
