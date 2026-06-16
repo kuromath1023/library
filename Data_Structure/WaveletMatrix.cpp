@@ -47,9 +47,9 @@ struct WaveletMatrix {
     }
 
     void build() {
-        lg = __lg(max<T>(*max_element(v.begin(), v.end()), 1)) + 1;
+        lg = __lg(max<T>(*max_element(v.begin(), v.end()), T(n)) + 1) + 1;
         bv.assign(lg, SuccinctBitVector(n));
-        mid.assign(lg);
+        mid.assign(lg, 0);
         vector<T> l(n), r(n);
         for (int h = lg - 1; h >= 0; h--) {
             u32 left = 0, right = 0;
