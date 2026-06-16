@@ -33,7 +33,7 @@ private:
     }
 
 public:
-    LazySegmentTree(int n_) { init(n_); }
+    LazySegmentTree(int n) { init(n); }
     LazySegmentTree(const vector<S> &a) { init(int(a.size())); build(a); }
 
     void set(int k, S x) {
