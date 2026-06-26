@@ -27,7 +27,7 @@ private:
     S get(Node *node, const T &k, T l, T r) const {
         while (r - l > 1) {
             if (!node) return e();
-            T m = (l + r) >> 1LL;
+            T m = (l + r) >> 1;
             if (k < m) {
                 r = m;
                 node = node->l;
