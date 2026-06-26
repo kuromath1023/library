@@ -23,7 +23,7 @@ private:
 
     void apply_at(int k, const F &f) {
         data[k] = mapping(f, data[k]);
-        if (k < size) lazy[k] = composition(lazy[k], f);
+        if (k < size) lazy[k] = composition(f, lazy[k]);
     }
 
     void push(int k) {
