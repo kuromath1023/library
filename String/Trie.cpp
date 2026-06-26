@@ -22,12 +22,13 @@ struct Trie {
         G[pos].common++;
         for (int i = 0; i < int(S.size()); i++) {
             int c = S[i] - base;
-            int &next_pos = G[pos].next[c];
+            int next_pos = G[pos].next[c];
             if (next_pos == -1) {
                 next_pos = int(G.size());
                 G.emplace_back(Node(c));
+                G[pos].next[c] = next_pos;
+                G[next_pos].par = pos;
             }
-            G[next_pos].par = pos;
             G[next_pos].common++;
             pos = next_pos;
         }
@@ -46,6 +47,16 @@ struct Trie {
             pos = G[pos].next[c];
         }
         return pos;
+    }
+
+    int prefix_count(const string &S) const {
+        int pos = find(S);
+        if (pos == -1) return 0;
+        return G[pos].common;
+    }
+
+    int move(int pos, char c) const {
+        return G[pos].next[c - base];
     }
 
     int count() const { return G[root].common; }
