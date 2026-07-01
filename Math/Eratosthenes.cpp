@@ -9,6 +9,7 @@ struct Eratosthenes {
         for (int i = 2; i <= n; i++) {
             if (!isPrime[i]) continue;
             minfactor[i] = i;
+            if (1LL * i * i > n) continue;
             for (int j = i * i; j <= n; j += i) {
                 isPrime[j] = false;
                 if (minfactor[j] == -1) minfactor[j] = i;
