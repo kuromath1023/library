@@ -8,7 +8,7 @@ void cincout() {
 }
 
 #define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
-#include "FenwickTree.hpp"
+#include "../../data_structure/FenwickTree.hpp"
 
 void solve() {
     int N, Q;
