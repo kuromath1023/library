@@ -7,7 +7,7 @@ void cincout() {
     cin.tie(nullptr);
 }
 
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_add_range_sum
 #include "../../data_structure/FenwickTree.hpp"
 
 void solve() {
