@@ -1,5 +1,4 @@
 #pragma once
-
 template<typename ActedMonoid>
 struct LazySegmentTree {
 private:
